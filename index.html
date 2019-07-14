@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Arcade</title>
+    <script type="text/javascript">
+      function loadGame(url, title) {
+        iframe = document.getElementById('gameScreen')
+        iframe.src = url
+        iframe.contentWindow.focus()
+        document.title = title
+      }
+    </script>
+  </head>
+  <body>
+    [<a href="projects/wip/index.html" target="WIP">Work In Progress</a>]
+    <table cellpadding=12>
+      <tr>
+        <td valign="top">
+          <ul>
+            <li><a href="#" onclick="loadGame('projects/snacks/index.html', 'Snack Attack')">Snack Attack</a></li>
+            <li><a href="#" onclick="loadGame('projects/fruits/index.html', 'Fruit Bowl')">Fruit Bowl</a></li>
+            <li><a href="#" onclick="loadGame('projects/meteors/index.html', 'Meteor Shower')">Meteor Shower</a></li>
+            <li><a href="#" onclick="loadGame('projects/ufos/index.html', 'UFO Invasion')">UFO Invasion</a></li>
+          </ul>
+        </td>
+        <td><iframe frameBorder="0" id="gameScreen" name="gameScreen" src="" width="1024" height="768"></iframe></td>
+      </tr>
+    </table>
+  </body>
+</html>
