@@ -61,13 +61,14 @@
       }
     </style>
     <script type="text/javascript">    
-      function loadGame(url, title, a) {
+      function loadGame(url, a) {
         // get ref to iframe
         iframe = document.getElementById('gameScreen')
         // set iframe src
         iframe.src = url
         // set focus to iframe
-        iframe.contentWindow.focus()        
+        iframe.contentWindow.focus()  
+        // set the selected item to active      
         setActive(a)
       }
       
@@ -90,9 +91,9 @@
           <li><a href="projects/wip/index.html" target="_SOC_WIP_">Summer of Code - 2019</a></li>
         </ul>
         <ul id="menubar" class="horizontal_menubar">
-          <li><a href="#" onclick="loadGame('projects/snacks/index.html', 'Snack Attack', this)">Snack Attack</a></li>
-          <li><a href="#" onclick="loadGame('projects/fruits/index.html', 'Fruit Bowl', this)">Fruit Bowl</a></li>
-          <li><a href="#" onclick="loadGame('projects/meteors/index.html', 'Meteor Shower', this)">Meteor Shower</a></li>
+          <li><a href="#" onclick="loadGame('projects/snacks/index.html', this)">Snack Attack</a></li>
+          <li><a href="#" onclick="loadGame('projects/fruits/index.html', this)">Fruit Bowl</a></li>
+            <li><a href="#" onclick="loadGame('projects/meteors/index.html', this)">Meteor Shower</a></li>
           <li><a href="#" onclick="loadGame('projects/ufos/index.html', this)">UFO Invasion</a></li>
         </ul>
       </div>
