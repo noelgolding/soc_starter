@@ -1,31 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
-    <meta charset="utf-8">
     <title>Arcade</title>
-    <script type="text/javascript">
-      function loadGame(url, title) {
+    <style>
+      body, html {
+        width: 100%; 
+        height: 100%; 
+        margin: 0; 
+        padding: 0;
+      }
+      
+      .row-container {
+        display: flex; 
+        width: 100%; 
+        height: 100%; 
+        flex-direction: column; 
+        background-color: blue; 
+        overflow: hidden;
+      }
+      
+      .first-row {
+        background-color: lime; 
+      }
+      
+      .second-row { 
+        flex-grow: 1; 
+        border: none; 
+        margin: 0; 
+        padding: 0; 
+      }
+
+      ul.horizontal_menubar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        text-align: center;
+      }
+
+      ul.horizontal_menubar li {
+        display: inline;
+      }
+
+      ul.horizontal_menubar li a {
+        color: #fff;
+        padding: 14px 16px;
+        display: inline-block;
+        text-decoration: none;
+      }
+
+      ul.horizontal_menubar li a:hover {
+        background-color: #111;
+        color: white;
+      }
+
+      .active {
+        background-color: #4CAF50;
+        color: white;
+      }
+    </style>
+    <script type="text/javascript">    
+      function loadGame(url, title, a) {
+        // get ref to iframe
         iframe = document.getElementById('gameScreen')
+        // set iframe src
         iframe.src = url
-        iframe.contentWindow.focus()
-        document.title = title
+        // set focus to iframe
+        iframe.contentWindow.focus()        
+        setActive(a)
+      }
+      
+      function setActive(a) {
+        li = a.parentElement
+        ul = li.parentElement
+        // for each li, remove the active class
+        for (list_item of ul.getElementsByTagName("li")) {
+          list_item.classList.remove('active')
+        }
+        // set the active class on the actual active li
+        li.classList.add('active')
       }
     </script>
   </head>
   <body>
-    [<a href="projects/wip/index.html" target="WIP">Work In Progress</a>]
-    <table cellpadding=12>
-      <tr>
-        <td valign="top">
-          <ul>
-            <li><a href="#" onclick="loadGame('projects/snacks/index.html', 'Snack Attack')">Snack Attack</a></li>
-            <li><a href="#" onclick="loadGame('projects/fruits/index.html', 'Fruit Bowl')">Fruit Bowl</a></li>
-            <li><a href="#" onclick="loadGame('projects/meteors/index.html', 'Meteor Shower')">Meteor Shower</a></li>
-            <li><a href="#" onclick="loadGame('projects/ufos/index.html', 'UFO Invasion')">UFO Invasion</a></li>
-          </ul>
-        </td>
-        <td><iframe frameBorder="0" id="gameScreen" name="gameScreen" src="" width="1024" height="768"></iframe></td>
-      </tr>
-    </table>
+    <div class="row-container">
+      <div class="first-row">
+        <ul class="horizontal_menubar">
+          <li><a href="projects/wip/index.html" target="_SOC_WIP_">Summer of Code - 2019</a></li>
+        </ul>
+        <ul id="menubar" class="horizontal_menubar">
+          <li><a href="#" onclick="loadGame('projects/snacks/index.html', 'Snack Attack', this)">Snack Attack</a></li>
+          <li><a href="#" onclick="loadGame('projects/fruits/index.html', 'Fruit Bowl', this)">Fruit Bowl</a></li>
+          <li><a href="#" onclick="loadGame('projects/meteors/index.html', 'Meteor Shower', this)">Meteor Shower</a></li>
+          <li><a href="#" onclick="loadGame('projects/ufos/index.html', this)">UFO Invasion</a></li>
+        </ul>
+      </div>
+      <iframe id="gameScreen" name="gameScreen" src="" class="second-row"></iframe>
+    </div>
   </body>
 </html>
