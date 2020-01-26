@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <link rel="shortcut icon" href="data:,"> <!-- to get rid of annoying favicon error in console -->
 
@@ -9,7 +10,8 @@
     <meta charset="utf-8">
     <title></title>
     <style>
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
         height: 100%;
@@ -18,8 +20,37 @@
       }
 
       #_soc_app_ {
+        position: relative;
+        border: 1px solid orange;
+        /* width: 400px;
+        height: 200px; */
         margin: auto;
       }
+
+      #_soc_app_ #_modal_ {
+        position: absolute;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        border: 1px solid black;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 128, .6);
+      }
+
+      #_soc_app_ #_modal_ #_modal_msg_ {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        min-width: 75%;
+        min-height: 75%;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, .6);
+      }
+
     </style>
     <script src='../../lib/helpers/random.js'></script>
     <script src='../../lib/helpers/ctx_helper.js'></script>
@@ -31,9 +62,26 @@
     <script src='../../lib/simplegameengine/simplecollision.js'></script>
     <script src='../../lib/simplegameengine/simplegame.js'></script>
     <script src='../../lib/simplegameengine/simplesprites.js'></script>
+    <script src='../../lib/xelements/x-elements.js' type="module"></script>
   </head>
+
   <body>
-    <div id="_soc_app_"></div>
+    <div id="_soc_app_">
+      <div id="_modal_">
+        <div id="_modal_msg_">The message goes in here</div>
+      </div>
+    </div>
+
     <script src="main.js"></script>
+
+    <script type="text/javascript">
+      tb = document.createElement('x-toggle-button')
+      tb.os = 'android'
+      modal = document.querySelector('#_modal_msg_')
+      modal.insertBefore(tb, modal.firstChild)
+      modal.appendChild(tb.cloneNode())
+
+    </script>
   </body>
+
 </html>
