@@ -1,0 +1,146 @@
+# API DESIGN
+
+## POST
+POST HTTP/1.1 /graphql 
+payload = {
+  apiToken: Olk123fafwe23412afasqweriKlasdf==,
+  query smtp{
+	domains: ['foo.bar.com'],
+	capabilities: ['utf8', 'auth'] // will filter on specified capabilities
+}
+
+
+## Response
+content-type: text/json
+{
+	status: ${HTTP.Status},
+	results: {
+		currentUrl: /<unique response id>?from=1&to=1&pageSize=1,
+		nextUrl: null,
+		prevUrl: null,
+		total: 1,
+		from: 1,
+		to: 1,
+                pageSize: 1
+		data: [{
+			domain: 'foo.bar.com',
+			last_updated: ${timestamp},
+			esmtp: true|false|unreachable,
+			capabilities: {
+				utf8: <return value from mail server>,
+				auth: 'LOGIN'
+			}
+		}]
+	}
+}
+
+
+# UI DESIGN
+
+# SITE MAP
+
+---
+
+# TECH SPEC
+
+## GraphQL API
+written in Python - Graphene (github) 
+- support only query, possibly subscription but not likely
+- domains and capabilities will be lowercased
+- at least one domain name is required in query
+? How to handle unknown capabilities? https://en.wikipedia.org/wiki/Extended_SMTP | http://www.iana.org/assignments/mail-parameters/mail-parameters.xhtml
+? API Error (code, status)
+?? Do we page results?
+?? Do we process the requests async?
+
+## API SERVER
+? Flask
+? Cert, or do we get this from our host?
+
+## Persistence
+? MongoDB, sqllite
+
+## Caching
+StaleWhileRevalidate
+? Redis
+
+## Auth
+? JWT
+?? Do we need auth?
+
+## Rate Limit
+?? Do we limit the number of domains per request?
+?? Do we limit the number of capabilities per domain per request?
+?? Do we limit the number of requests per (sec|min|hour|day) by (session|user)?
+
+## Hosting
+? Heroku
+? Cert?
+
+## UI
+GET HTTP/1.1 /
+?? Do we create a UI?
+
+### client
+? PWA?
+- feature detection
+- safari and ms metatags and icons
+- workbox for service workers
+- possibly LitElement for custom elements
+- NO SASS or LESS, NO JS Transpilation
+- No jquery, bootstrap, etc
+- es5 javascript, no support below, or revert to standard form retrieval from server
+- handlebars.js for client side templating - maybe just string literal
+- css grid for layout
+- follow LDS
+
+### Server
+? Flask
+?? offer server side rendering? under what circumstances?
+?? server-side templating wih Jinja2?
+
+
+## Documentation
+GET HTTP/1.1 /docs
+? API
+? Help
+? License
+? Limits
+? Auth
+? UI
+link to  http://www.iana.org/assignments/mail-parameters/mail-parameters.xhtml
+
+## URL
+### Domains:
+caniuseEsmtp.com
+
+-- might as well get this one as well, as I am assuming someone will ultimately forget the extra E
+caniusesmtp.com
+
+May want to consider some misspellings as well
+caniusestmp.com
+caniusesmpt.com
+caniuseEstmp.com
+caniuseEsmpt.com
+
+
+### MAIN URL
+https://caniuseEsmtp.com
+
+http://caniuseEsmtp.com 	-> https://caniuseEsmtp.com
+https://caniusesmtp.com  	-> https://caniuseEsmtp.com
+http://caniusesmtp.com  	-> https://caniuseEsmtp.com
+https://caniusestmp.com 	-> https://caniuseEsmtp.com
+http://caniusestmp.com 		-> https://caniuseEsmtp.com
+https://caniusesmpt.com 	-> https://caniuseEsmtp.com
+http://caniusesmpt.com 		-> https://caniuseEsmtp.com
+https://caniuseEstmp.com 	-> https://caniuseEsmtp.com
+http://caniuseEstmp.com 	-> https://caniuseEsmtp.com
+https://caniuseEsmpt.com 	-> https://caniuseEsmtp.com
+http://caniuseEsmpt.com 	-> https://caniuseEsmtp.com
+
+
+
+
+
+
